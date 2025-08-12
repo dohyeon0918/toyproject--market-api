@@ -11,7 +11,16 @@ datasource:
 
 logging:
   level:
-    org.hibernate.SQL: debug
+    root: info   # 기본은 info로
+    org.hibernate.SQL: debug  # 실행되는 SQL만 보고 싶을 때
+    org.hibernate.type.descriptor.sql: trace  # SQL 파라미터까지 보고 싶을 때
+    org.springframework.web: info  # 웹 요청 로그는 info 정도
 
 jwt:
   secret: ${JWT_SECRET}
+  exp-ms: 3600000
+
+server:
+  tomcat:
+    apr:
+      enabled: false
