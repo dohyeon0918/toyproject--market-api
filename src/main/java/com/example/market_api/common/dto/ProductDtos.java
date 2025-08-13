@@ -11,8 +11,7 @@ public class ProductDtos {
     public record CreateRequest(
         @NotBlank(message = "제목은 필수") @Size(max=100) String title,
         @NotBlank(message = "설명은 필수") String description,
-        @NotNull(message = "가격은 필수") @Positive Integer price,
-        @NotNull(message = "판매자ID는 필수(임시)") Long sellerId
+        @NotNull(message = "가격은 필수") @Positive Integer price
     ){}
 
     public record UpdateRequest(
