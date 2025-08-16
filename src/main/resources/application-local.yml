@@ -1,20 +1,10 @@
 spring:
   datasource:
-    url:  ${DB_URL:jdbc:mysql://localhost:3306/trady?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-  application:
-      name: market-api
-
+    url: ${DB_URL:jdbc:mysql://localhost:3306/trady?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
   jpa:
-    hibernate:
-      ddl-auto: update  # 개발 편의. 운영에서는 금지(나중에 Flyway 권장)
-    properties:
-      hibernate:
-        format_sql: true
+    hibernate.ddl-auto: update
+    properties.hibernate.format_sql: true
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
+management.endpoints.web.exposure.include: health,info

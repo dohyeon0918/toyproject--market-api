@@ -4,23 +4,16 @@ spring:
   profiles:
     default: ${SPRING_PROFILES_ACTIVE:local}
 
-datasource:
-  url: ${DB_URL}
-  username: ${DB_USERNAME}
-  password: ${DB_PASSWORD}
-
 logging:
   level:
-    root: info   # 기본은 info로
-    org.hibernate.SQL: debug  # 실행되는 SQL만 보고 싶을 때
-    org.hibernate.type.descriptor.sql: trace  # SQL 파라미터까지 보고 싶을 때
-    org.springframework.web: info  # 웹 요청 로그는 info 정도
+    root: info
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace
+    org.springframework.web: info
 
 jwt:
   secret: ${JWT_SECRET}
   exp-ms: 3600000
 
 server:
-  tomcat:
-    apr:
-      enabled: false
+  tomcat.apr.enabled: false

@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: trady-mysql
+    container_name: market-mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: trady
@@ -11,3 +11,19 @@ services:
     command: --default-authentication-plugin=caching_sha2_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     volumes:
       - ./mysql-data:/var/lib/mysql
+
+  app:
+    build: .                           # 현재 디렉토리의 Dockerfile로 앱 이미지 빌드
+    container_name: market-api
+    depends_on:
+      - mysql                          # mysql 먼저 띄워(단, '완전준비'까지 기다리진 않음)
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      # 컨테이너 내부에서 DB hostname은 'localhost'가 아니라 아래의 'mysql' (서비스명) 앱도 컨테이너 sql도 컨테이너일 때
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/trady?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      JWT_SECRET: local-very-secret-key-at-least-32-bytes-long-123456
+      JWT_EXP_MS: 3600000
+    ports:
+      - "8080:8080"
